@@ -17,12 +17,12 @@ class SendmsgController extends Controller
 
 
 
-        $phone = '15964366508';
-        $SMS_code = 'SMS_150571944';
+        $phone = '18663582623';
+        $SMS_code = '';
         $code = rand(10000,99999);
         //入队
-        SmsQueue::dispatch(new SendSms($phone,$SMS_code,$param=['code'=>$code]));
-
+        $this->dispatch(new SmsQueue($phone,$SMS_code,$param=['code'=>$code]));
+echo  111;die;
 
     }
 

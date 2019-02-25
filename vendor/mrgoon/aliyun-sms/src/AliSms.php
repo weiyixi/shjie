@@ -18,9 +18,9 @@ class AliSms {
             $accessKeySecret = $config['access_secret'];
             $signName = $config['sign_name'];
         } else {
-            $accessKeyId = config('aliyunsms.access_key');
-            $accessKeySecret = config('aliyunsms.access_secret');
-            $signName = config('aliyunsms.sign_name');
+            $accessKeyId = '';
+            $accessKeySecret = '';
+            $signName = '';
         }
 
         //短信API产品名

@@ -15,13 +15,23 @@ class SendSms implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 
+    public $phone;
+    public $code;
+    public $param;
+
+
     /**
-     * Create a new job instance.
-     *
-     * @return void
+     * SendSms constructor.
+     * @param string $phone
+     * @param string $code
+     * @param array $param
      */
-    public function __construct()
+    public function __construct($phone,$code,$param=['code'=>1234])
     {
+        $this->phone = $phone;
+        $this->code = $code;
+        $this->param = $param;
+
 
     }
 
@@ -33,7 +43,9 @@ class SendSms implements ShouldQueue
     public function handle(\App\Service\SendSms $sendSms)
     {
 
-       $res =  $sendSms->sendmsg();
+       $res =  $sendSms->sendmsg( $this->phone,
+        $this->code ,
+        $this->param);
        Log::debug('send-msg-result::',$res);
 
     }

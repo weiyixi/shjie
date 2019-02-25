@@ -7,9 +7,6 @@ use Mrgoon\AliSms\AliSms;
 
 class SendSms
 {
-    public $phone;
-    public $code;
-    public $param;
     private $aliSms=null;
 
     /**
@@ -18,11 +15,9 @@ class SendSms
      * @param string $code
      * @param array $param
      */
-    public function __construct($phone='15964366508',$code='SMS_150571944',$param=['code'=>1234])
+    public function __construct()
     {
-        $this->phone = $phone;
-        $this->code = $code;
-        $this->param = $param;
+
         $this->aliSms = new AliSms();
 
 
@@ -31,9 +26,9 @@ class SendSms
     /**
      * @return mixed|\SimpleXMLElement
      */
-    public function sendmsg()
+    public function sendmsg($phone,$code,$param)
     {
-        return $this->aliSms->sendSms($this->phone, $this->code,$this->param );
+        return $this->aliSms->sendSms($phone,$code,$param);
 
     }
 
