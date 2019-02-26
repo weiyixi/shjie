@@ -44,6 +44,7 @@ class AliSms {
         $request->setSignName($signName);
         //必填-短信模板Code
         $request->setTemplateCode($template_code);
+        $request->setAcceptFormat('JSON');
         //选填-假如模板中存在变量需要替换则为必填(JSON格式)
         if ($data) {
             $request->setTemplateParam(json_encode($data));

@@ -26,7 +26,7 @@ class SendSms implements ShouldQueue
      * @param string $code
      * @param array $param
      */
-    public function __construct($phone,$code,$param=['code'=>1234])
+    public function __construct($phone,$code,$param)
     {
         $this->phone = $phone;
         $this->code = $code;
@@ -43,10 +43,23 @@ class SendSms implements ShouldQueue
     public function handle(\App\Service\SendSms $sendSms)
     {
 
-       $res =  $sendSms->sendmsg( $this->phone,
-        $this->code ,
-        $this->param);
-       Log::debug('send-msg-result::',$res);
+//        throw new \Exception('回调异常!'.$this->phone.
+//        $this->code);
+
+        $res =  $sendSms->sendmsg(
+            $this->phone,
+            $this->code ,
+            $this->param
+        );
+        if($res->Message=='OK'){
+            //发送成功可做 成功后的逻辑处理   入库 改状态等
+            Log::debug('send-msg-result:: success',[$this->phone, $this->code , $this->param]);
+        }else{
+            //抛出异常
+            // php artisan queue:work   --tries=3   代表尝试三次就不再尝试 直接入库  ->failed_jobs
+            throw new \Exception('短信发送异常!'.$this->phone. $this->code);
+        }
+
 
     }
 }
